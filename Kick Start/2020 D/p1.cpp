@@ -40,7 +40,7 @@ typedef vector<int> vi;
 typedef vector<vector<int> > vvi;
 typedef vector<ll> vl;
 typedef vector<bool> vb;
-#include <algorithm>
+//#include <algorithm>
 //#include <set>
 //#include <map>
 //#include <unordered_set>
@@ -49,16 +49,8 @@ typedef vector<bool> vb;
 //#include <cstring>
 //#include <sstream>
 //#include <stack>
-// #include <queue>
+//#include <queue>
 
-bool canDo(vi dif, ll mid, ll k) {
-    int req = 0;
-    each(dif) {
-        req += i / mid;
-        if (i % mid == 0) req--;
-    }
-    return req <= k;
-}
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
@@ -67,23 +59,19 @@ int main() {
     cin >> t;
 
     for (int tr = 0; tr < t; tr++) {
-        int n, k;
-        cin >> n >> k;
-        int ar[n];
+        int n;
+        cin >> n;
+        ll ar[n];
         read(ar);
-        vi dif;
-        for (int i = 0; i < n - 1; i++) dif.pb(ar[i + 1] - ar[i]);
-        sort(all(dif));
-        ll ans = 1e9;
-        ll lo = 1, hi = 1e9;
-        while (lo <= hi) {
-            ll mid = (lo + hi) / 2;
-            if (canDo(dif, mid, k)) {
-                ans = mid;
-                hi = mid - 1;
-            } else
-                lo = mid + 1;
+        int ans = 0;
+        ll maxOnRight = -1;
+        for (int i = 0; i < n; i++) {
+            if (ar[i] > maxOnRight && (i == n - 1 || ar[i] > ar[i + 1])) {
+                ans++;
+            }
+            max_self(maxOnRight, ar[i]);
         }
+
         cout << "Case #" << tr + 1 << ": " << ans << endl;
     }
 }

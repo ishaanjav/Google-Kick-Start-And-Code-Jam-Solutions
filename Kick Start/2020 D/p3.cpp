@@ -40,24 +40,26 @@ typedef vector<int> vi;
 typedef vector<vector<int> > vvi;
 typedef vector<ll> vl;
 typedef vector<bool> vb;
-#include <algorithm>
+//#include <algorithm>
 //#include <set>
 //#include <map>
-//#include <unordered_set>
+#include <unordered_set>
 //#include <unordered_map>
 //#include <cmath>
 //#include <cstring>
 //#include <sstream>
 //#include <stack>
-// #include <queue>
+//#include <queue>
+double total = 0;
 
-bool canDo(vi dif, ll mid, ll k) {
-    int req = 0;
-    each(dif) {
-        req += i / mid;
-        if (i % mid == 0) req--;
-    }
-    return req <= k;
+double outOf = 0;
+int a, b;
+vvi adj;
+double amt(int d, int freq) { return d / freq; }
+unordered_set<int> nodes;
+void dfs(int v, int often, int times = 0) {
+    if (times % often == 0) nodes.ins(v);
+    for (int u : adj[v]) dfs(u, often, times + 1);
 }
 int main() {
     ios_base::sync_with_stdio(false);
@@ -67,23 +69,33 @@ int main() {
     cin >> t;
 
     for (int tr = 0; tr < t; tr++) {
-        int n, k;
-        cin >> n >> k;
-        int ar[n];
-        read(ar);
-        vi dif;
-        for (int i = 0; i < n - 1; i++) dif.pb(ar[i + 1] - ar[i]);
-        sort(all(dif));
-        ll ans = 1e9;
-        ll lo = 1, hi = 1e9;
-        while (lo <= hi) {
-            ll mid = (lo + hi) / 2;
-            if (canDo(dif, mid, k)) {
-                ans = mid;
-                hi = mid - 1;
-            } else
-                lo = mid + 1;
+        int n;
+        cin >> n >> a >> b;
+        outOf = n * n;
+        adj.rs(0);
+        adj.rs(n + 1);
+        total = 0;
+        for (int i = 2; i <= n; i++) {
+            int v;
+            cin >> v;
+            // adj[v].pb(i);
+            adj[i].pb(v);
         }
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                nodes.clear();
+                dfs(i, a);
+                dfs(j, b);
+                total += nodes.size();
+            }
+        }
+        double ans = total / outOf;
+        ans = round(ans * 1000000.0) / 1000000.0;
         cout << "Case #" << tr + 1 << ": " << ans << endl;
     }
 }
+/*
+1
+4 2 1
+1 1 2
+ */
