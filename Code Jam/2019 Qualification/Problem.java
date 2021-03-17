@@ -1,7 +1,7 @@
 /*
  * Created by ishaanjav
  * github.com/ishaanjav
- * Codeforces Solutions: https://github.com/ishaanjav/Codeforces-Solutions
+ * Solutions: https://github.com/ishaanjav/Google-Kick-Start-And-Code-Jam-Solutions
  */
 
 import java.io.*;

@@ -40,58 +40,33 @@ typedef vector<int> vi;
 typedef vector<vector<int> > vvi;
 typedef vector<ll> vl;
 typedef vector<bool> vb;
-//#include <algorithm>
+#include <algorithm>
 //#include <set>
 //#include <map>
 //#include <unordered_set>
 //#include <unordered_map>
 //#include <cmath>
-#include <cstring>
+//#include <cstring>
 //#include <sstream>
 //#include <stack>
-//#include <queue>
+// #include <queue>
 
-
-ll ans = 0;
-int n, m, k;
-vvi stacks;
-ll dp[51][1501];
-bool done[51][1501];
-ll recurse(int stack, int left, ll total = 0) {
-    if (done[stack][left]) return dp[stack][left];
-    if (stack == n) {
-        return 0;
-    }
-    ll best = recurse(stack + 1, left, total), sum = 0;
-    for (int j = 0; j < min(left, m); j++) {
-        sum += stacks[stack][j];
-        max_self(best, sum + recurse(stack + 1, left - j - 1, total + sum));
-    }
-    done[stack][left] = 1;
-    dp[stack][left] = best;
-    return best;
-}
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
 
-    int t;
-    cin >> t;
+    int t; cin >> t;
 
     for (int tr = 0; tr < t; tr++) {
-        cin >> n >> m >> k;
-        stacks.resize(n);
-        stacks.clear();
-        SET(done, 0);
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                int a;
-                cin >> a;
-                stacks[i].pb(a);
-            }
+        int n, x; cin >> n >> x;
+        pii ar[n];
+        for(int i =0 ; i < n; i++){
+            int a; cin >> a;
+            ar[i] = mp(a/x + (a %x > 0), i);
         }
-        ans = recurse(0, k);
-
-        cout << "Case #" << tr + 1 << ": " << ans << endl;
+        sort(ar, ar + n);
+        cout << "Case #" << tr + 1 << ":";
+        each(ar) cout << " " << i.se + 1;
+        cout << endl;
     }
 }
