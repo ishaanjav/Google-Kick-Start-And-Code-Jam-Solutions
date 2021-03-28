@@ -1,3 +1,9 @@
+/*
+ * Created by ishaanjav
+ * github.com/ishaanjav
+ * Solutions: https://github.com/ishaanjav/Google-Kick-Start-And-Code-Jam-Solutions
+ */
+
 #include <iostream>
 using namespace std;
 
